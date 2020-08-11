@@ -1,39 +1,42 @@
 board = [['7','8','9'],['4','5','6'],['1','2','3']]
 playing_board = [[' ',' ',' '],[' ',' ',' '],[' ',' ',' ']]
-current_letter = ['X', 'O']
+current_letter = []
 count = 0
 
 def display(lst):
-    print()
-    for x in range(0, len(lst)):
-        print(f' {lst[x][0]} | {lst[x][1]} | {lst[x][2]} ')
-        if x <= 1:
-            print('-----------')
-    print()
+    print(f'\n {lst[0][0]} | {lst[0][1]} | {lst[0][2]} ')
+    print('-----------')
+    print(f' {lst[1][0]} | {lst[1][1]} | {lst[1][2]} ')
+    print('-----------')
+    print(f' {lst[2][0]} | {lst[2][1]} | {lst[2][2]} \n')
 
-def play_game():
-    choice = ''
-    while choice.lower() != 'y' and choice.lower() != 'n':
-        choice = input("Would you like to play tictactoe? (y/n): ")
-    if choice.lower() == 'n':
-        return False
-    return True
+def select_letter():
+    global current_letter
+    while True:
+        choice = input("\nPlayer 1, select your letter (X/O): ")
+        if choice.lower() == 'x':
+            current_letter = ['X', 'O']
+            break
+        elif choice.lower() == 'o':
+            current_letter = ['O', 'X']
+            break
+        else:
+            print("Invalid response\n")
 
 def player_choice():
-    global count
-    choice = ''
-    while not choice.isdigit():
-        choice = input("Select a number on the board: ")
-        if choice not in board[0] and choice not in board[1] and choice not in board[2]:
-            print("Invalid choice")
-            choice = ''
-    val = int(choice)
-    val -= 1
-    row = 1
+    while True:
+        choice = input("\nSelect a number on the board: ")
+        if not any(choice in x for x in board) or choice == '': #and choice not in board[1] and choice not in board[2]:
+            print("Invalid response\n")
+        else:
+            break
+    val = int(choice) - 1
     if val//3 == 0:
         row = 2
     elif val//3 == 2:
         row = 0
+    else:
+        row = 1
     playing_board[row][val%3] = current_letter[count%2]
     board[row][val%3] = ''
 
@@ -48,14 +51,11 @@ def gameover(letter):
     or letter == playing_board[0][0] == playing_board[1][1] == playing_board[2][2]
     or letter == playing_board[0][2] == playing_board[1][1] == playing_board[2][0]):
         print(f'Winner: {letter}')
-        count += 1
         return True
     elif count == 9:
         print("Draw")
         return True
-    else:
-        count += 1
-        return False
+    return False
 
 
 def restart():
@@ -65,9 +65,19 @@ def restart():
     count = 0
 
 
-while play_game():
+while True:
+    choice = input("Would you like to play tictactoe? (y/n): ")
+    if choice.lower() == 'n':
+        break
+    elif choice.lower() == 'y':
+        pass
+    else:
+        print("Invalid response\n")
+        continue
+    select_letter()
     display(board)
-    while not gameover(current_letter[count%2]):
+    while not gameover(current_letter[count%2-1]):
         player_choice()
+        count += 1
         display(playing_board)
     restart()
