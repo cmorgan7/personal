@@ -15,7 +15,7 @@ def play_game():
     choice = ''
     while choice.lower() != 'y' and choice.lower() != 'n':
         choice = input("Would you like to play tictactoe? (y/n): ")
-    if choice == 'n':
+    if choice.lower() == 'n':
         return False
     return True
 
@@ -25,6 +25,7 @@ def player_choice():
     while not choice.isdigit():
         choice = input("Select a number on the board: ")
         if choice not in board[0] and choice not in board[1] and choice not in board[2]:
+            print("Invalid choice")
             choice = ''
     val = int(choice)
     val -= 1
