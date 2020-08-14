@@ -1,4 +1,6 @@
-from Global import suits, ranks, values
+from Global import values
+
+
 class Card:
 
     def __init__(self, suit, rank):

@@ -1,6 +1,6 @@
 class Chips:
 
-    def __init__(self, total = 100):
+    def __init__(self, total=100):
         self.total = total  # This can be set to a default value or supplied by a user input
         self.bet = 0
 

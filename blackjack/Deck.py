@@ -1,6 +1,8 @@
 import random
-from Global import suits, ranks, values
+from Global import suits, ranks
 from Card import Card
+
+
 class Deck:
 
     def __init__(self):
@@ -12,7 +14,7 @@ class Deck:
     def __str__(self):
         d = ''
         for card in self.deck:
-             d += str(card)+'\n'
+            d += str(card) + '\n'
         return d
 
     def shuffle(self):
