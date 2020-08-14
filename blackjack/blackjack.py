@@ -59,8 +59,8 @@ def player_busts():
     return True
 
 
-def player_wins(chips):
-    chips.win_bet()
+def player_wins(chips, blackjack):
+    chips.win_bet(blackjack)
     print("Player wins!")
 
 
@@ -153,7 +153,7 @@ while True:
     elif dealer.value == player.value:
         push()
     else:
-        player_wins(player_chips)
+        player_wins(player_chips, blackjack)
 
     # Inform Player of their chips total
     print(f'Total chips: {player_chips.total}')
